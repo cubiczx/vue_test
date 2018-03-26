@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Vue Test</title>
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		<!-- development version, includes helpful console warnings -->
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		
+	</head>
+	<body>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Declarative Rendering</h3>
+			<div id="app">
+			  {{ message }}
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Bind elements</h3>
+			<div id="app-2">
+			  <span v-bind:title="message">
+			    Hover your mouse over me for a few seconds
+			    to see my dynamically bound title!
+			  </span>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Conditionals and Loops</h3>
+			<div id="app-3">
+			  <span v-if="seen">Now you see me</span>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Conditionals and Loops</h3>
+			<div id="app-4">
+			  <ol>
+			    <li v-for="todo in todos">
+			      {{ todo.text }}
+			    </li>
+			  </ol>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Handling User Input</h3>
+			<div id="app-5">
+			  <p>{{ message }}</p>
+			  <button v-on:click="reverseMessage">Reverse Message</button>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Handling User Input</h3>
+			<div id="app-6">
+			  <p>{{ message }}</p>
+			  <input v-model="message">
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Composing with Components</h3>
+			<div id="app-7">
+			  <ol>
+			    <!--
+			      Now we provide each todo-item with the todo object
+			      it's representing, so that its content can be dynamic.
+			      We also need to provide each component with a "key",
+			      which will be explained later.
+			    -->
+			    <todo-item
+			      v-for="item in groceryList"
+			      v-bind:todo="item"
+			      v-bind:key="item.id">
+			    </todo-item>
+			  </ol>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Freeze data</h3>
+			<div id="app-8">
+				<p>{{ foo }}</p>
+			    <!-- this will no longer update `foo`! -->
+			    <button @click="foo = 'baz'">Change it</button>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Watch Callback</h3>
+			<div id="app-9">
+				<p>{{ message }}</p>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Interpolations - Raw HTML</h3>
+			<div id="app-10">
+				<p>Using mustaches: {{ rawHtml }}</p>
+				<p>Using v-html directive: <span v-html="rawHtml"></span></p>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Interpolations - Attributes</h3>
+			<div id="app-11">
+				<span v-bind:title="dynamicTitle">Hover to see dynamic title</div>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Interpolations- Using JavaScript Expressions</h3>
+			<div id="app-12">
+				<div v-bind:id="'list-' + id ? 'YES' : 'NO'">See ID attribute {{ id }} ID EXISTS? {{ id ? 'YES' : 'NO' }}</div>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Directives</h3>
+			<div id="app-13">
+				<p v-if="seen">{{ message }}</p>
+			    <!-- this will no longer update `foo`! -->
+			    <button @click="seen = !seen">Click to hide/show message</button>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Computed Properties</h3>
+			<div id="app-14">
+			  <p>Original message: "{{ message }}"</p>
+			  <p>Computed reversed message: "{{ reversedMessage }}"</p>
+			  <p>Method reversed message: "{{ reverseMessage() }}"</p>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Computed Setter</h3>
+			<div id="app-15">
+			  <p>Full name: "{{ fullName }}"</p>
+			  <input v-model="fullName"></input>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Watchers</h3>
+			<!-- Since there is already a rich ecosystem of ajax libraries    -->
+			<!-- and collections of general-purpose utility methods, Vue core -->
+			<!-- is able to remain small by not reinventing them. This also   -->
+			<!-- gives you the freedom to use what you're familiar with. -->
+			<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+			<div id="watch-example">
+			  <p>
+			    Ask a yes/no question:
+			    <input v-model="question">
+			  </p>
+			  <p>{{ answer }}</p>
+			  <img v-bind:src="image"/>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Binding HTML Classes - Object Syntax</h3>
+			<div id="app-16">
+			  <div class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }">TEXT</div>
+			</div>
+			<div id="app-17">
+			  <div v-bind:class="classObject">classObject</div>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Binding HTML Classes - Array Syntax</h3>
+			<div id="app-18">
+			  <div v-bind:class="[isActive ? activeClass : '', errorClass]">Ternary Syntax</div>
+			  <div v-bind:class="[{ active: isActive }, errorClass]">Array Syntax</div>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Components - Global Registration</h3>
+			<div id="app-19">
+			  <my-component></my-component>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Components - Local Registration</h3>
+			<div id="app-20">
+			  <my-component-local></my-component-local>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Components - DOM Template Parsing Caveats</h3>
+			<div id="app-21">
+				<table>
+				  <tr is="my-row"></tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Components - data Must Be a Function</h3>
+			<div id="app-22">
+			  <simple-counter></simple-counter>
+			  <simple-counter></simple-counter>
+			  <simple-counter></simple-counter>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Components - Passing Data with Props</h3>
+			<h4>CamelCase vs. kebab-case</h4>
+			<div id="app-23">
+				<!-- kebab-case in HTML -->
+				<child my-message="Message of props"></child>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Components - Passing Data with Props</h3>
+			<div id="app-24">
+			  <input v-model="parentMsg">
+			  <br>
+			  <child v-bind:my-message="parentMsg"></child>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Components - One-Way Data Flow</h3>
+			<div id="app-25">
+			  <counter initial-counter="1"></child>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Components - One-Way Data Flow</h3>
+			<div id="app-26">
+			  <propvalidation :prop-a=1 prop-b="TEXT" prop-c="REQUIRED TEXT" :prop-d=1 :prop-f=11>{{validation}}</propvalidation>
+			</div>
+		</div>
+
+		<!-- jQuery -->
+		<script src="//code.jquery.com/jquery.js"></script>
+		<!-- Bootstrap JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		<!-- Vue APP -->
+		<script src="vue_app.js"></script>
+	</body>
+</html>
