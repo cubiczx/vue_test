@@ -251,7 +251,309 @@
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 			<h3>Components - One-Way Data Flow</h3>
 			<div id="app-26">
-			  <propvalidation :prop-a=1 prop-b="TEXT" prop-c="REQUIRED TEXT" :prop-d=1 :prop-f=11>{{validation}}</propvalidation>
+			  <propvalidation :prop-a=1 :prop-b="TEXT" :prop-c="REQUIREDTEXT" :prop-d=1 :prop-f=11>{{validation}}</propvalidation>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Components - Using v-on with Custom Events</h3>
+			<div id="app-27">
+			  <p>{{ total }}</p>
+			  <button-counter v-on:increment="incrementTotal"></button-counter>
+			  <button-counter v-on:increment="incrementTotal"></button-counter>
+			</div>
+			<div id="app-28">
+			  <p v-for="msg in messages">{{ msg }}</p>
+			  <button-message v-on:message="handleMessage"></button-message>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<script src="https://cdn.rawgit.com/chrisvfritz/5f0a639590d6e648933416f90ba7ae4e/raw/974aa47f8f9c5361c5233bd56be37db8ed765a09/currency-validator.js"></script>
+			<h3>Components - Form Input Components using Custom Events</h3>
+			<div id="app-29">
+			  <currency-input 
+			    label="Price" 
+			    v-model="price"
+			  >
+			  </currency-input>
+			  <currency-input 
+			    label="Shipping" 
+			    v-model="shipping"
+			  ></currency-input>
+			  <currency-input 
+			    label="Handling" 
+			    v-model="handling"
+			  ></currency-input>
+			  <currency-input 
+			    label="Discount" 
+			    v-model="discount"
+			  ></currency-input>
+			<p>Total: ${{ total }}</p>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Binding HTML Classes - With Components</h3>
+			<div id="app-30">
+				<my-component class="baz boo"></my-component>
+				<my-component v-bind:class="{ active: isActive }"></my-component>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Binding Inline Styles - Object Syntax</h3>
+			<div id="app-31">
+				<div v-bind:style="styleObject">TEXT WITH STYLE</div>
+				<div v-bind:style="[baseStyles, overridingStyles]">Multiple styles</div>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Conditional Rendering - Conditional Groups with v-if</h3>
+			<div id="app-32">
+				<div v-if="Math.random() > 0.5">
+				  Now you see me
+				</div>
+				<div v-else>
+				  Now you don't
+				</div>
+
+				<div v-if="type === 'A'">
+				  A
+				</div>
+				<div v-else-if="type === 'B'">
+				  B
+				</div>
+				<div v-else-if="type === 'C'">
+				  C
+				</div>
+				<div v-else>
+				  Not A/B/C
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>List Rendering - Mapping an Array to Elements with v-for</h3>
+			<ul id="app-33">
+			  <li v-for="item in items">
+			    {{ item.message }}
+			  </li>
+			</ul>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>List Rendering - Mapping an Array to Elements with v-for</h3>
+			<ul id="app-34">
+			  <li v-for="(item, index) in items">
+			    {{ parentMessage }} - {{ index }} - {{ item.message }}
+			  </li>
+			</ul>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>List Rendering - v-for with an Object</h3>
+			<ul id="app-35" class="demo">
+			  <li v-for="value in object">
+			    {{ value }}
+			  </li>
+			  <li v-for="(value, key, index) in object" :key="value.id">
+				{{ index }}. {{ key }}: {{ value }}
+			   </li>
+			</ul>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>List Rendering - Displaying Filtered/Sorted Results</h3>
+			<ul id="app-36">
+				<li v-for="n in even(numbers)">{{ n }}</li>
+			</ul>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>List Rendering - Displaying Filtered/Sorted Results</h3>
+			<div id="todo-list-example">
+			  <input
+			    v-model="newTodoText"
+			    v-on:keyup.enter="addNewTodo"
+			    placeholder="Add a todo"
+			  >
+			  <ul v-if="todos.length">
+			    <li
+			      is="todo-item"
+			      v-for="(todo, index) in todos"
+			      v-bind:key="todo.id"
+			      v-bind:title="todo.title"
+			      v-on:remove="todos.splice(index, 1)"
+			    ></li>
+			  </ul>
+			  <p v-else>No todos left!</p>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Event Handling - Listening to Events</h3>
+			<div id="app-37">
+			  <button v-on:click="counter += 1">Add {{ counter+1 }}</button>
+			  <p>The button above has been clicked {{ counter }} times.</p>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Event Handling - Method Event Handlers</h3>
+			<div id="app-38">
+			  <!-- `greet` is the name of a method defined below -->
+			  <button v-on:click="greet">Greet</button>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Event Handling - Methods in Inline Handlers</h3>
+			<div id="app-39">
+			  <button v-on:click="say('hi')">Say hi</button>
+			  <button v-on:click="say('what')">Say what</button>
+			  <button v-on:click="warn('Form cannot be submitted yet.', $event)">Submit</button>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Event Handling - Key Modifiers</h3>
+			<div id="app-40">
+				<!-- same as above -->
+				<input v-on:keyup.enter="submit" placeholder="Submit">
+
+				<!-- also works for shorthand -->
+				<input @keyup.enter="submit" placeholder="Submit">
+				
+				<!-- also works for shorthand -->
+				<input @keyup.space="space" placeholder="Do spaces">
+
+				<input @keyup.ctrl.67="copy" placeholder="Ctrl + C">
+				
+				
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Form Input Bindings - Basic Usage</h3>
+			<div id="app-41">
+				<input v-model="message" placeholder="edit me">
+				<p>Message is: {{ message }}</p>
+
+				<input type="checkbox" id="checkbox" v-model="checked">
+				<label for="checkbox">{{ checked }}</label>
+				<br>
+				<h4>Check multiple names:</h4>
+				  <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+				  <label for="jack">Jack</label>
+				  <input type="checkbox" id="john" value="John" v-model="checkedNames">
+				  <label for="john">John</label>
+				  <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+				  <label for="mike">Mike</label>
+				  <br>
+				  <span>Checked names: {{ checkedNames }}</span>
+				
+				<br>
+				<input type="radio" id="one" value="One" v-model="picked">
+				<label for="one">One</label>
+				<br>
+				<input type="radio" id="two" value="Two" v-model="picked">
+				<label for="two">Two</label>
+				<br>
+				<span>Picked: {{ picked }}</span>
+
+				<br>
+				<select v-model="selected" >
+				  <option disabled value="">Please select one</option>
+				  <option>A</option>
+				  <option>B</option>
+				  <option>C</option>
+				</select>
+				<span>Selected: {{ selected }}</span>
+
+				<select v-model="selectedMultiple" multiple>
+				  <option disabled value="">Please select one</option>
+				  <option>A</option>
+				  <option>B</option>
+				  <option>C</option>
+				</select>
+				<span>Selected: {{ selectedMultiple }}</span>
+
+				<br>
+				<h4>Dynamic options</h4>
+				<select v-model="selected">
+				  <option v-for="option in options" v-bind:value="option.value">
+				    {{ option.text }}
+				  </option>
+				</select>
+				<span>Selected: {{ selected }}</span>
+				
+				<br>
+				<h4>Value Bindings</h4>
+				<input
+				  type="checkbox"
+				  v-model="toggle"
+				  true-value="yes"
+				  false-value="no"
+				>
+				
+				<br>
+				<input type="radio" v-model="pick" v-bind:value="a">
+
+				<br>
+				<select v-model="selectedObject">
+				  <!-- inline object literal -->
+				  <option v-bind:value="{ number: 123 }">123</option>
+				</select>
+				
+				<br>
+				<h4>Modifiers</h4>
+				<h5>.lazy</h5>
+				<!-- synced after "change" instead of "input" -->
+				<input v-model.lazy="msg" >
+				<h5>.number</h5>
+				<input v-model.number="age" type="number">
+				<h5>.trim</h5>
+				<input v-model.trim="msg">
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Components Basics</h3>
+			<h4>Base Example</h4>
+			<div id="components-demo">
+			  <button-counter></button-counter>
+			</div>
+			<h4>Reusing Components</h4>
+			<div id="components-demoR">
+			  <button-counter></button-counter>
+			  <button-counter></button-counter>
+			  <button-counter></button-counter>
+			</div>
+			<h4>Passing Data to Child Components with Props</h4>
+			<div id="app-42">
+				<blog-post title="My journey with Vue"></blog-post>
+				<blog-post title="Blogging with Vue"></blog-post>
+				<blog-post title="Why Vue is so fun"></blog-post>
+			</div>
+			<div id="blog-post-demo">
+				<blog-post
+				  v-for="post in posts"
+				  v-bind:key="post.id"
+				  v-bind:title="post.title"
+				></blog-post>
+			</div>
+			<h4>Sending Messages to Parents with Events</h4>
+			<div id="blog-posts-events-demo">
+			  <div :style="{ fontSize: postFontSize + 'em' }">
+			    <blog-post
+			      v-for="post in posts"
+			      v-bind:key="post.id"
+			      v-bind:post="post"
+			      v-on:enlarge-text="onEnlargeText"
+			    ></blog-post>
+			  </div>
 			</div>
 		</div>
 

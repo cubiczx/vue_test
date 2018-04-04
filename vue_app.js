@@ -403,3 +403,396 @@ Vue.component('propvalidation', {
 var app26 = new Vue({
   el: '#app-26'
 })
+
+Vue.component('button-counter', {
+  template: '<button v-on:click="incrementCounter">{{ counter }}</button>',
+  data: function () {
+    return {
+      counter: 0
+    }
+  },
+  methods: {
+    incrementCounter: function () {
+      this.counter += 1
+      this.$emit('increment')
+    }
+  },
+})
+
+var app27 = new Vue({
+  el: '#app-27',
+  data: {
+    total: 0
+  },
+  methods: {
+    incrementTotal: function () {
+      this.total += 1
+    }
+  }
+})
+
+Vue.component('button-message', {
+  template: `<div>
+    <input type="text" v-model="message" />
+    <button v-on:click="handleSendMessage">Send</button>
+  </div>`,
+  data: function () {
+    return {
+      message: 'test message'
+    }
+  },
+  methods: {
+    handleSendMessage: function () {
+      this.$emit('message', { message: this.message })
+    }
+  }
+})
+
+var app28 = new Vue({
+  el: '#app-28',
+  data: {
+    messages: []
+  },
+  methods: {
+    handleMessage: function (payload) {
+      this.messages.push(payload.message)
+    }
+  }
+})
+
+Vue.component('currency-input', {
+  template: '\
+    <div>\
+      <label v-if="label">{{ label }}</label>\
+      $\
+      <input\
+        ref="input"\
+        v-bind:value="value"\
+        v-on:input="updateValue($event.target.value)"\
+        v-on:focus="selectAll"\
+        v-on:blur="formatValue"\
+      >\
+    </div>\
+  ',
+  props: {
+    value: {
+      type: Number,
+      default: 0
+    },
+    label: {
+      type: String,
+      default: ''
+    }
+  },
+  mounted: function () {
+    this.formatValue()
+  },
+  methods: {
+    updateValue: function (value) {
+      var result = currencyValidator.parse(value, this.value)
+      if (result.warning) {
+        this.$refs.input.value = result.value
+      }
+      this.$emit('input', result.value)
+    },
+    formatValue: function () {
+      this.$refs.input.value = currencyValidator.format(this.value)
+    },
+    selectAll: function (event) {
+      // Workaround for Safari bug
+      // http://stackoverflow.com/questions/1269722/selecting-text-on-focus-using-jquery-not-working-in-safari-and-chrome
+      setTimeout(function () {
+      	event.target.select()
+      }, 0)
+    }
+  }
+})
+
+var app29 = new Vue({
+  el: '#app-29',
+  data: {
+    price: 0,
+    shipping: 0,
+    handling: 0,
+    discount: 0
+  },
+  computed: {
+    total: function () {
+      return ((
+        this.price * 100 + 
+        this.shipping * 100 + 
+        this.handling * 100 - 
+        this.discount * 100
+      ) / 100).toFixed(2)
+    }
+  }
+})
+
+Vue.component('my-component', {
+  template: '<p class="foo bar">Hi</p>'
+})
+
+var app30 = new Vue({
+  el: '#app-30',
+  data: {
+  	isActive : true
+  }
+})
+
+var app31 = new Vue({
+  el: '#app-31',
+  data: {
+	  styleObject: {
+	    color: 'red',
+	    fontSize: '13px'
+	  },
+	  baseStyles: {
+	  	color: 'red',
+	  },
+	  overridingStyles: {
+		color: 'blue',
+	  }
+	}
+})
+
+var app32 = new Vue({
+  el: '#app-32',
+  data: {
+  	type : 'B'
+  }
+})
+
+var app33 = new Vue({
+  el: '#app-33',
+  data: {
+    items: [
+      { message: 'Foo' },
+      { message: 'Bar' }
+    ]
+  }
+})
+
+var app34 = new Vue({
+  el: '#app-34',
+  data: {
+    parentMessage: 'Parent',
+    items: [
+      { message: 'Foo' },
+      { message: 'Bar' }
+    ]
+  }
+})
+
+var app35 = new Vue({
+  el: '#app-35',
+  data: {
+    object: {
+      firstName: 'John',
+      lastName: 'Doe',
+      age: 30
+    }
+  }
+})
+
+var app36 = new Vue({
+  el: '#app-36',
+  data: {
+	  numbers: [ 1, 2, 3, 4, 5 ]
+	},
+	methods: {
+	  even: function (numbers) {
+	    return numbers.filter(function (number) {
+	      return number % 2 === 0
+	    })
+	  }
+	}
+})
+
+Vue.component('todo-item', {
+  template: '\
+    <li>\
+      {{ title }}\
+      <button v-on:click="$emit(\'remove\')">X</button>\
+    </li>\
+  ',
+  props: ['title']
+})
+
+var todolist = new Vue({
+  el: '#todo-list-example',
+  data: {
+    newTodoText: '',
+    todos: [
+      {
+        id: 1,
+        title: 'Do the dishes',
+      },
+      {
+        id: 2,
+        title: 'Take out the trash',
+      },
+      {
+        id: 3,
+        title: 'Mow the lawn'
+      }
+    ],
+    nextTodoId: 4
+  },
+  methods: {
+    addNewTodo: function () {
+      this.todos.push({
+        id: this.nextTodoId++,
+        title: this.newTodoText
+      })
+      this.newTodoText = ''
+    }
+  }
+})
+
+var app37 = new Vue({
+  el: '#app-37',
+  data: {
+    counter: 0
+  }
+})
+
+var app38 = new Vue({
+  el: '#app-38',
+  data: {
+    name: 'Xavier'
+  },
+  // define methods under the `methods` object
+  methods: {
+    greet: function (event) {
+      // `this` inside methods points to the Vue instance
+      alert('Hello ' + this.name + '!')
+      // `event` is the native DOM event
+      if (event) {
+        alert(event.target.tagName)
+      }
+    }
+  }
+})
+
+// you can invoke methods in JavaScript too
+// app38.greet() // => 'Hello Xavier!'
+
+var app39 = new Vue({
+  el: '#app-39',
+  methods: {
+    say: function (message) {
+      alert(message)
+    },
+    warn: function (message, event) {
+      // now we have access to the native event
+      if (event) event.preventDefault()
+      alert(message)
+    }
+  }
+})
+
+var app40 = new Vue({
+  el: '#app-40',
+  methods: {
+    submit: function () {
+      alert('SUBMIT')
+    },
+    space: function () {
+      alert('Space')
+    },
+    copy: function () {
+      alert('Copy')
+    }
+  }
+})
+
+var app41 = new Vue({
+  el: '#app-41',
+  data:{
+    checked: false,
+    message: '',
+    checkedNames: [],
+    picked: '',
+    selectedMultiple: '',
+    selected: 'C',
+    options: [
+      { text: 'One', value: 'A' },
+      { text: 'Two', value: 'B' },
+      { text: 'Three', value: 'C' }
+    ],
+    toggle : 'yes',
+    pick: '',
+    selectedObject: [
+      { number: 0 }
+    ],
+    msg : ''
+  }
+})
+
+// Define a new component called button-counter
+Vue.component('button-counter', {
+  data: function () {
+    return {
+      count: 0
+    }
+  },
+  template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+})
+
+var componentsDemo = new Vue({
+  el: '#components-demo'
+})
+
+var componentsDemoR = new Vue({
+  el: '#components-demoR'
+})
+
+Vue.component('blog-post', {
+  props: ['title'],
+  template: '<h3>{{ title }}</h3>'
+})
+
+var app42 = new Vue({
+  el: '#app-42'
+})
+
+var app43 = new Vue({
+  el: '#blog-post-demo',
+  data: {
+    posts: [
+      { id: 1, title: 'Object My journey with Vue' },
+      { id: 2, title: 'Object Blogging with Vue' },
+      { id: 3, title: 'Object Why Vue is so fun' },
+    ]
+  }
+})
+
+Vue.component('blog-post', {
+  props: ['post'],
+  template: `
+    <div class="blog-post">
+      <h3>{{ post.title }}</h3>
+      <button v-on:click="$emit('enlarge-text', 0.1)">
+        Enlarge text
+      </button>
+      <div v-html="post.content"></div>
+    </div>
+  `
+})
+
+var app44 = new Vue({
+  el: '#blog-posts-events-demo',
+  data: {
+   posts: [
+      { id: 1, title: 'Object2 My journey with Vue' },
+      { id: 2, title: 'Object2 Blogging with Vue' },
+      { id: 3, title: 'Object2 Why Vue is so fun' },
+    ],
+    postFontSize: 1
+  },
+  methods: {
+    onEnlargeText: function (enlargeAmount) {
+      this.postFontSize += enlargeAmount
+    }
+  }
+})
