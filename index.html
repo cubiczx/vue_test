@@ -18,7 +18,8 @@
 
 		<!-- development version, includes helpful console warnings -->
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		
+
+		<link rel="stylesheet" href="styles.css">
 	</head>
 	<body>
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
@@ -555,7 +556,64 @@
 			    ></blog-post>
 			  </div>
 			</div>
+			<h4>Dynamic Components</h4>
+			<div id="dynamic-component-demo" class="demo">
+			  <button
+			    v-for="tab in tabs"
+			    v-bind:key="tab.name"
+			    v-bind:class="['tab-button', { active: currentTab.name === tab.name }]"
+			    v-on:click="currentTab = tab"
+			  >{{ tab.name }}</button>
+
+			  <component
+			    v-bind:is="currentTab.component"
+			    class="tab"
+			  ></component>
+			</div>
 		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Custom Events</h3>
+			<h4>Binding Native Events to Components</h4>
+			<div id="app-45">
+				<base-input></base-input>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Slots</h3>
+			<h4>Named Slots</h4>
+			<div id="app-46">
+				<base-layout>
+				  <h1 slot="header">Here might be a page title</h1>
+
+				  <p>A paragraph for the main content.</p>
+				  <p>And another one.</p>
+
+				  <p slot="footer">Here's some contact info</p>
+				</base-layout>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3>Dynamic & Async Components</h3>
+			<h4>keep-alive with Dynamic Components</h4>
+			<div id="dynamic-component-demo2">
+			  <button
+			    v-for="tab in tabs"
+			    v-bind:key="tab"
+			    v-bind:class="['tab-button', { active: currentTab === tab }]"
+			    v-on:click="currentTab = tab"
+			  >{{ tab }}</button>
+
+			  <keep-alive>
+			    <component
+			      v-bind:is="currentTabComponent"
+			      class="tab"
+			    ></component>
+			  </keep-alive>
+			</div>
+		</div>
+		
 
 		<!-- jQuery -->
 		<script src="//code.jquery.com/jquery.js"></script>
